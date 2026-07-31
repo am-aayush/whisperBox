@@ -14,11 +14,13 @@ export async function POST(request: Request) {
         if(!user){
             return Response.json({success:false,message:"User not Found"},{status:401})
         }
-
+        if(user.isVerified){
+            return Response.json({success:false,message:"User is Already Verified"},{status:201})
+        }
         const isCodeValid = user.verifyCode === code
         const isCodeNotExpired = new Date(user.verifyCodeExpiry) > new Date()
 
-        if(isCodeValid && isCodeNotExpired){
+        if(isCodeValid && isCodeNotExpired){ 
             user.isVerified = true
             await user.save()
 
