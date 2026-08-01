@@ -145,19 +145,19 @@ export default function MessagesPage() {
         <div className="flex bg-card p-1 rounded-lg border border-border shadow-sm">
           <button
             onClick={() => setFilter("all")}
-            className={`px-4 py-1.5 text-sm font-medium rounded-md transition-colors ${filter === "all" ? "bg-muted text-foreground" : "text-muted-foreground hover:text-foreground"}`}
+            className={`px-4 py-1.5 text-sm font-medium rounded-md transition-colors cursor-pointer ${filter === "all" ? "bg-muted text-foreground" : "text-muted-foreground hover:text-foreground"}`}
           >
             All
           </button>
           <button
             onClick={() => setFilter("unread")}
-            className={`px-4 py-1.5 text-sm font-medium rounded-md transition-colors ${filter === "unread" ? "bg-muted text-foreground" : "text-muted-foreground hover:text-foreground"}`}
+            className={`px-4 py-1.5 text-sm font-medium rounded-md transition-colors cursor-pointer ${filter === "unread" ? "bg-muted text-foreground" : "text-muted-foreground hover:text-foreground"}`}
           >
             Unread
           </button>
           <button
             onClick={() => setFilter("archived")}
-            className={`px-4 py-1.5 text-sm font-medium rounded-md transition-colors ${filter === "archived" ? "bg-muted text-foreground" : "text-muted-foreground hover:text-foreground"}`}
+            className={`px-4 py-1.5 text-sm font-medium rounded-md transition-colors cursor-pointer ${filter === "archived" ? "bg-muted text-foreground" : "text-muted-foreground hover:text-foreground"}`}
           >
             Archived
           </button>

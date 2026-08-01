@@ -104,13 +104,19 @@ export default function SettingsPage() {
     //   </div>
     // </div>
 
-    <div className="w-full h-full flex items-center justify-center py-10">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Settings Page</h1>
-        <p className="text-lg text-muted-foreground">
-          This page is under construction. Please check back later.
-        </p>
-      </div>
+    <div className="flex flex-col justify-center items-center mx-auto px-4 py-8 max-w-5xl space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
+      <img
+        src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/maintenance/maintenance.svg"
+        alt="Logo"
+        className="mb-8 h-40"
+      />
+      <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-center text-gray-700 dark:text-white mb-4">
+        Page is under maintenance
+      </h1>
+      <p className="text-center text-gray-500 dark:text-gray-300 text-md md:text-lg lg:text-xl mb-8">
+        We're working hard to improve the user experience. Stay tuned!
+      </p>
+      <div className="flex space-x-4"></div>
     </div>
   );
 }

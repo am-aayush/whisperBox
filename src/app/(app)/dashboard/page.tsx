@@ -291,7 +291,7 @@ const DashboardPage = () => {
                 </Button>
                 <Button className="rounded-full shadow-sm bg-primary text-primary-foreground cursor-pointer">
                   <Link href="#">
-                    <Share className="w-4 h-4 mr-2" /> Share
+                    <Share className="w-4 h-4 mr-1 mb-1 inline" /> Share
                   </Link>
                 </Button>
               </div>

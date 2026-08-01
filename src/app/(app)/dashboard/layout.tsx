@@ -35,7 +35,7 @@ export default function RootLayout({
       </div>
     );
   } else if (status === "unauthenticated") {
-      router.push("/");      
+      router.replace("/");      
     return (
       <div className="fixed inset-0 flex items-center justify-center bg-white dark:bg-black bg-opacity-50 z-50">
         <div className="bg-card p-6 rounded-lg shadow-lg text-center">
