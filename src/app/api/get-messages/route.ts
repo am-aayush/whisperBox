@@ -8,10 +8,9 @@ import mongoose from "mongoose";
 
 export async function GET(request: Request) {
     await dbConnect()
-
     const session = await getServerSession(authOption)
     const user: User = session?.user as User
-
+    
     if (!session || !session.user) {
         return Response.json({ success: false, message: "Not Authenticated" }, { status: 401 })
     }
@@ -28,10 +27,10 @@ export async function GET(request: Request) {
         ])
 
         if (!user || user.length === 0) {
-            return Response.json({ success: false, messageL: "user not found" }, { status: 401 })
+            return Response.json({ success: false, message: "user not found" }, { status: 401 })
         }
 
-        return Response.json({ success: true, messages: user[0].message }, { status: 200 })
+        return Response.json({ success: true, messages: user[0].messages }, { status: 200 })
     } catch (error) {
         console.log("An unexpected Error occured: ", error)
         return Response.json({ success: false, message: "Unexpected Error" }, { status: 500 })

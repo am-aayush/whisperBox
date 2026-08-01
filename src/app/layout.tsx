@@ -4,7 +4,6 @@ import "./globals.css";
 import AuthProvider from "@/context/authProvider";
 import { cn } from "@/lib/utils";
 import { Toaster } from "@/components/ui/toast";
-import Navbar from "@/components/Navbar";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 

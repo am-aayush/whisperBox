@@ -18,7 +18,7 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Loader2 } from "lucide-react";
+import { Loader2, MessageSquare } from "lucide-react";
 import Link from "next/link";
 
 const signUp = () => {
@@ -94,15 +94,19 @@ const signUp = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md">
-        <div className="text-center">
-          <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-6">
-            Join Whisper Box
-          </h1>
-          <p className="mb-4">Sign up to start your anonymous adventure</p>
+    <div className="min-h-screen bg-muted/30 flex items-center justify-center p-4">
+      <div className="w-full max-w-md bg-card rounded-[2rem] shadow-xl border border-border p-8 md:p-10">
+        <div className="flex justify-center mb-6">
+          <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center">
+            <MessageSquare className="w-6 h-6 text-primary" />
+          </div>
         </div>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+        <div className="text-center mb-8">
+          <h1 className="text-2xl font-bold tracking-tight mb-2">Create Account</h1>
+          <p className="text-sm text-muted-foreground">Start receiving anonymous messages</p>
+        </div>
+
+<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           <FieldGroup>
             <Controller
               name="username"
@@ -128,7 +132,7 @@ const signUp = () => {
                   )}
                   {isCheckingUsername && (
                     <p className="text-sm text-muted-foreground">
-                      <Loader2 /> Checking username availability...
+                      <Loader2 className="w-3 inline" /> Checking username availability...
                     </p>
                   )}
                   <p
@@ -196,14 +200,10 @@ const signUp = () => {
             )}
           </Button>
         </form>
-        <div className="mt-4 text-center">
-          <p>
-            Already have an account?{" "}
-            <Link href="/sign-in" className="text-blue-500 hover:underline">
-              Sign In
-            </Link>
-          </p>
-        </div>
+
+        <p className="text-center text-sm mt-8 text-muted-foreground">
+          Already have an account? <Link href="/sign-in" className="text-primary font-medium hover:underline">Login</Link>
+        </p>
       </div>
     </div>
   );
