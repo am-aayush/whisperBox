@@ -12,6 +12,7 @@
     "@ai-sdk/google": "^4.0.29",
     "@base-ui/react": "^1.6.0",
     "@hookform/resolvers": "^5.5.7",
+    "@vercel/analytics": "^2.0.1",
     "ai": "^7.0.44",
     "axios": "^1.19.0",
     "bcryptjs": "^3.0.3",
