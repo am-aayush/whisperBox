@@ -13,6 +13,10 @@ import {
   Shield,
   Sparkles,
   Lock,
+  UserPlus,
+  Eye,
+  Inbox,
+  Share2,
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
@@ -56,13 +60,13 @@ export default function Home() {
           </div>
           <nav className="hidden md:flex gap-6 items-center">
             <Link
-              href="#"
+              href="#features"
               className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
             >
               Features
             </Link>
             <Link
-              href="#"
+              href="#how-it-works"
               className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
             >
               How it Works
@@ -117,7 +121,7 @@ export default function Home() {
                   className="rounded-full shadow-lg shadow-primary/25 bg-linear-to-r from-primary to-accent-500 hover:opacity-90"
                 >
                   <Link href="/sign-up">Get Started</Link>
-                </Button>                
+                </Button>
               </motion.div>
             </div>
 
@@ -128,6 +132,17 @@ export default function Home() {
               className="flex-1 relative w-full max-w-lg aspect-square"
             >
               <div className="absolute inset-0 bg-linear-to-tr from-primary/10 to-accent-500/10 rounded-[2rem] border border-white/10 dark:border-white/5 backdrop-blur-3xl shadow-2xl flex items-center justify-center overflow-hidden">
+                {/* Notebook Lines */}
+                <div className="absolute inset-0 px-10 py-8">
+                  <div className="flex flex-col gap-5 opacity-25">
+                    {Array.from({ length: 10 }).map((_, i) => (
+                      <div
+                        key={i}
+                        className="h-0.5 w-full bg-border rounded-full"
+                      />
+                    ))}
+                  </div>
+                </div>
                 <motion.div
                   animate={{ y: [0, -10, 0] }}
                   transition={{
@@ -164,20 +179,53 @@ export default function Home() {
                     <div className="h-2 w-16 bg-muted rounded-full"></div>
                   </div>
                 </motion.div>
+                {/* Left Margin */}
+                <div className="absolute left-8 top-0 h-full w-px bg-primary/20"></div>
 
+                {/* Fake Anonymous Messages */}
+                <div className="absolute inset-0 px-14 py-10 flex flex-col gap-6 opacity-50">
+                  <div>
+                    <div className="h-3 w-28 bg-primary/20 rounded-full mb-2" />
+                    <div className="h-2 w-52 bg-muted rounded-full mb-2" />
+                    <div className="h-2 w-40 bg-muted rounded-full" />
+                  </div>
+
+                  <div>
+                    <div className="h-3 w-24 bg-accent-500/20 rounded-full mb-2" />
+                    <div className="h-2 w-48 bg-muted rounded-full mb-2" />
+                    <div className="h-2 w-36 bg-muted rounded-full" />
+                  </div>
+
+                  <div>
+                    <div className="h-3 w-20 bg-primary/20 rounded-full mb-2" />
+                    <div className="h-2 w-44 bg-muted rounded-full mb-2" />
+                    <div className="h-2 w-32 bg-muted rounded-full" />
+                  </div>
+                </div>
+
+                {/* Center Lock */}
+                <div className="absolute inset-0 flex items-center justify-center z-10">
+                  <div className="w-24 h-24 rounded-full bg-background/80 backdrop-blur-xl border border-border shadow-2xl flex items-center justify-center">
+                    <LockKeyhole className="w-10 h-10 text-primary" />
+                  </div>
+                </div>
+
+                {/* Soft Glow */}
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(99,102,241,0.12),transparent_70%)]" />
                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,var(--tw-gradient-stops))] from-primary/5 via-background/0 to-background/0"></div>
               </div>
             </motion.div>
           </section>
 
           {/* Features */}
-          <section className="py-20">
+          <section className="py-20" id="features">
             <div className="text-center mb-16">
               <h2 className="text-3xl font-bold tracking-tight mb-4">
                 Premium Features
               </h2>
               <p className="text-muted-foreground">
-                Everything you need for a secure anonymous messaging experience.
+                Everything you need for a secure anonymous messaging experience
+                Absolutely for free.
               </p>
             </div>
 
@@ -221,6 +269,74 @@ export default function Home() {
             </div>
           </section>
 
+          {/* How It Works */}
+          <section id="how-it-works" className="py-20 scroll-mt-20 relative">
+            <div className="absolute inset-0 bg-muted/30 rounded-[3rem] -z-10"></div>
+            <div className="py-12 px-6 sm:px-12">
+              <div className="text-center mb-16">
+                <h2 className="text-3xl font-bold tracking-tight mb-4">
+                  How It Works
+                </h2>
+                <p className="text-muted-foreground">
+                  Four simple steps to start receiving anonymous messages.
+                </p>
+              </div>
+
+              <div className="relative">
+                {/* Connecting Line (Desktop) */}
+                <div className="hidden md:block absolute top-1/2 left-0 w-full h-0.5 bg-border -translate-y-1/2 z-0"></div>
+
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-8 relative z-10">
+                  {[
+                    {
+                      step: 1,
+                      title: "Create Account",
+                      desc: "Sign up for a free WhisperBox account in seconds.",
+                      icon: UserPlus,
+                    },
+                    {
+                      step: 2,
+                      title: "Share Your Link",
+                      desc: "Copy your unique public link and share it anywhere.",
+                      icon: Share2,
+                    },
+                    {
+                      step: 3,
+                      title: "Receive Messages",
+                      desc: "Friends send you anonymous messages through your link.",
+                      icon: Inbox,
+                    },
+                    {
+                      step: 4,
+                      title: "Read Securely",
+                      desc: "Log in to your private dashboard to read them all.",
+                      icon: Eye,
+                    },
+                  ].map((item) => {
+                    const Icon = item.icon;
+                    return (
+                      <div
+                        key={item.step}
+                        className="flex flex-col items-center text-center"
+                      >
+                        <div className="w-16 h-16 rounded-full bg-background border-4 border-muted flex items-center justify-center shadow-lg mb-6 relative group hover:border-primary/50 transition-colors">
+                          <div className="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-linear-to-r from-primary to-accent-500 text-white flex items-center justify-center font-bold text-sm shadow-md">
+                            {item.step}
+                          </div>
+                          <Icon className="w-7 h-7 text-primary/80 group-hover:text-primary transition-colors" />
+                        </div>
+                        <h3 className="text-lg font-bold mb-2">{item.title}</h3>
+                        <p className="text-sm text-muted-foreground">
+                          {item.desc}
+                        </p>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+          </section>
+
           {/* CTA */}
           <section className="py-20 mb-20">
             <div className="rounded-[2.5rem] bg-linear-to-r from-primary to-accent-500 p-12 text-center text-primary-foreground shadow-2xl relative overflow-hidden">
@@ -243,7 +359,7 @@ export default function Home() {
 
         <footer className="border-t border-border py-8 text-center text-sm text-muted-foreground">
           <div className="container mx-auto flex flex-col md:flex-row justify-between items-center gap-4 px-6">
-            <div>&copy; 2024 WhisperBox. All rights reserved.</div>
+            <div>&copy; 2026 WhisperBox. All rights reserved.</div>
             <div className="flex gap-6">
               <Link href="#" className="hover:text-foreground">
                 Privacy
