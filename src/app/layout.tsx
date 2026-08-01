@@ -4,6 +4,7 @@ import "./globals.css";
 import AuthProvider from "@/context/authProvider";
 import { cn } from "@/lib/utils";
 import { Toaster } from "@/components/ui/toast";
+import { Analytics } from "@vercel/analytics/next";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -46,6 +47,7 @@ export default function RootLayout({
         <body className="min-h-full flex flex-col">
           {children}
           <Toaster />
+          <Analytics />
         </body>
       </AuthProvider>
     </html>
