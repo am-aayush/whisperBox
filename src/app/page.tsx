@@ -367,7 +367,7 @@ export default function Home() {
               <Link href="#" className="hover:text-foreground">
                 Terms
               </Link>
-              <Link href="#" className="hover:text-foreground">
+              <Link href="https://github.com/am-aayush/whisperBox" target="_blank" className="hover:text-foreground">
                 Github
               </Link>
               <Link href="#" className="hover:text-foreground">
