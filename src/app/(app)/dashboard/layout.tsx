@@ -5,7 +5,7 @@ import { Inbox, LogOut, MessageSquare, Router, Settings } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { signOut, useSession } from "next-auth/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function RootLayout({
   children,
@@ -23,6 +23,12 @@ export default function RootLayout({
     router.push(data.url);
   };
 
+   useEffect(() => {
+    if (status === "unauthenticated") {
+      router.replace("/");
+    }
+  }, [status, router]);
+
   if (status === "loading") {
     return (
       <div className="fixed inset-0 flex items-center justify-center bg-white dark:bg-black bg-opacity-50 z-50">
@@ -34,8 +40,7 @@ export default function RootLayout({
         </div>
       </div>
     );
-  } else if (status === "unauthenticated") {
-      router.replace("/");      
+  } else if (status === "unauthenticated") {    
     return (
       <div className="fixed inset-0 flex items-center justify-center bg-white dark:bg-black bg-opacity-50 z-50">
         <div className="bg-card p-6 rounded-lg shadow-lg text-center">
