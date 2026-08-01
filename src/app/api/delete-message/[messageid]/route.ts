@@ -6,7 +6,7 @@ import { User } from "next-auth";
 import mongoose from "mongoose";
 
 
-export async function DELETE(request: Request, { params }: { params: { messageid: string } }) {
+export async function DELETE(request: Request, { params }: any) {
     const {messageid} = await params
     const messageId = messageid
     // console.log(new mongoose.Types.ObjectId(messageId))
