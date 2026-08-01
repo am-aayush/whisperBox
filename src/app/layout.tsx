@@ -40,6 +40,7 @@ export default function RootLayout({
         inter.variable,
         
       )}
+      data-scroll-behavior="smooth"
     >
       <AuthProvider>
         <body className="min-h-full flex flex-col">
