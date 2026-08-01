@@ -4,10 +4,12 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "@/components/ui/toast";
+import { messageSchema } from "@/schemas/messageSchema";
 import { ApiResponse } from "@/types/ApiResponse";
+import { zodResolver } from "@hookform/resolvers/zod";
 import axios, { AxiosError } from "axios";
 import { AnimatePresence, motion } from "framer-motion";
-import { CheckCircle2, MessageSquare, Sparkles } from "lucide-react";
+import { CheckCircle2, Loader2, MessageSquare, Sparkles } from "lucide-react";
 import { useParams } from "next/navigation";
 import React, { useEffect, useEffectEvent, useState } from "react";
 import { Controller, useForm, useWatch } from "react-hook-form";
@@ -18,24 +20,26 @@ const messagePage = () => {
   );
   const { username } = useParams();
   const [isSent, setIsSent] = useState(false);
+  const [settingSuggestion, setSettingSuggestion] = useState(false);
   const maxLength = 500;
   const form = useForm({
+    resolver: zodResolver(messageSchema),
     defaultValues: {
-      message: "",
+      content: "",
     },
   });
-  const watchMessage = useWatch({
+  const watchContent = useWatch({
     control: form.control,
-    name: "message",
+    name: "content",
   });
   const onSubmit = async (data: any) => {
-    if (data.message.trim()) {
-      setIsSent(true);
+    if (data.content.trim()) {
       try {
         const response = await axios.post("/api/send-message", {
           username,
-          content: data.message,
+          content: data.content,
         });
+        setIsSent(true);
         toast.add({
           type: "success",
           description: response.data.message,
@@ -43,7 +47,7 @@ const messagePage = () => {
         // reset after some time just for demo
         setTimeout(() => {
           setIsSent(false);
-          form.setValue("message", "");
+          form.setValue("content", "");
         }, 3000);
       } catch (error) {
         const axiosError = error as AxiosError<ApiResponse>;
@@ -58,6 +62,7 @@ const messagePage = () => {
 
   //Ai Suggestion
   const suggestMessages = async () => {
+    setSettingSuggestion(true);
     try {
       const res = await axios.post("/api/suggest-messages");
       setAiSuggestions(res.data.message);
@@ -73,6 +78,7 @@ const messagePage = () => {
         description: errorMessage,
       });
     }
+    setSettingSuggestion(false);
   };
 
   return (
@@ -86,7 +92,7 @@ const messagePage = () => {
           <div className="w-20 h-20 rounded-full bg-linear-to-br from-primary to-accent-500 p-1 shadow-xl">
             <div className="w-full h-full bg-card rounded-full flex items-center justify-center border-2 border-background">
               <span className="text-3xl font-bold text-transparent bg-clip-text bg-linear-to-r from-primary to-accent-500">
-                J
+                {username?.toString().charAt(0)?.toUpperCase()}
               </span>
             </div>
           </div>
@@ -94,7 +100,7 @@ const messagePage = () => {
             <h1 className="text-2xl font-bold tracking-tight">
               Send an anonymous message to{" "}
               <span className="text-transparent bg-clip-text bg-linear-to-r from-primary to-accent-500">
-                @john
+                @{username}
               </span>
             </h1>
             <p className="text-muted-foreground mt-2">
@@ -121,16 +127,16 @@ const messagePage = () => {
                     <div className="relative">
                       <FieldGroup>
                         <Controller
-                          name="message"
+                          name="content"
                           control={form.control}
                           render={({ field, fieldState }) => (
                             <Field data-invalid={fieldState.invalid}>
-                              <FieldLabel htmlFor="message">
-                                Enter you Message
+                              <FieldLabel htmlFor="content" className="mb-2">
+                                Enter your Message
                               </FieldLabel>
                               <Textarea
                                 {...field}
-                                id="message"
+                                id="content"
                                 placeholder="Write your anonymous message..."
                                 className="min-h-40 resize-none rounded-2xl bg-muted/30 border-border/50 p-4 text-base focus-visible:ring-primary focus-visible:border-primary transition-all pb-10"
                                 maxLength={maxLength}
@@ -140,13 +146,13 @@ const messagePage = () => {
                         />
                       </FieldGroup>
                       <div className="absolute bottom-4 right-4 text-xs font-medium text-muted-foreground">
-                        {watchMessage.length}/{maxLength}
+                        {watchContent.length}/{maxLength}
                       </div>
                     </div>
                     <Button
                       type="submit"
-                      disabled={!watchMessage.trim()}
-                      className="w-full h-12 rounded-xl bg-linear-to-r from-primary to-accent-500 hover:opacity-90 text-primary-foreground shadow-md shadow-primary/20 text-base font-semibold"
+                      disabled={!watchContent.trim()}
+                      className="w-full h-12 rounded-xl bg-linear-to-r from-primary to-accent-500 hover:opacity-90 text-primary-foreground shadow-md shadow-primary/20 text-base font-semibold cursor-pointer"
                     >
                       Send Message
                     </Button>
@@ -172,19 +178,23 @@ const messagePage = () => {
                     className="rounded-full text-muted-foreground hover:text-primary hover:bg-primary/10"
                     onClick={() => suggestMessages()}
                   >
-                    <svg
-                      className="w-4 h-4"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
-                      />
-                    </svg>
+                    {settingSuggestion ? (
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                    ) : (
+                      <svg
+                        className="w-4 h-4"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                        />
+                      </svg>
+                    )}
                   </Button>
                 </div>
                 <AnimatePresence mode="wait">
@@ -219,7 +229,7 @@ const messagePage = () => {
                             },
                           },
                         }}
-                        onClick={() => form.setValue("message", suggestion)}
+                        onClick={() => form.setValue("content", suggestion)}
                         className="w-full text-left p-4 rounded-xl bg-card border border-border/50 hover:border-primary/50 hover:shadow-sm transition-all flex gap-3 group cursor-pointer"
                       >
                         <Sparkles className="w-4 h-4 text-accent-500/50 mt-0.5 group-hover:text-accent-500 transition-colors shrink-0" />

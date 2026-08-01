@@ -2,6 +2,8 @@ import mongoose, { Schema, Document } from "mongoose";
 
 export interface Message extends Document {
     content: string;
+    isRead: boolean;
+    isArchived: boolean;
     createdAt: Date;
 }
 
@@ -9,6 +11,14 @@ const MessageSchema: Schema<Message> = new Schema({
     content: {
         type: String,
         required: true
+    },
+    isRead :{
+        type: Boolean,
+        default: false
+    },
+    isArchived :{
+        type: Boolean,
+        default: false
     },
     createdAt: {
         type: Date,

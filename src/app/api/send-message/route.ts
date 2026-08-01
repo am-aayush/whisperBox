@@ -15,7 +15,7 @@ export async function POST(request:Request) {
         }
         //is user accepting the message
         if(!user.isAcceptingMessage){
-            return Response.json({success:false,message:"User is not Acceting the Message"},{status:403})
+            return Response.json({success:false,message:"Currently User is Not Accepting the Messages"},{status:403})
         }
 
         const newMessage = {content, createdAt: new Date()}
